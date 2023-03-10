@@ -1,0 +1,114 @@
+
+#include <iostream>
+
+using namespace std;
+
+class Node
+{
+private:
+    
+    int key;
+    Node *next;
+    
+public:
+    
+    Node()
+    {
+        key = 0;
+        next = 0;
+    }
+    
+    Node(int _key , Node *_next = 0)
+    {
+        key = _key;
+        
+    }
+    
+    Node get_key()
+    {
+        return key;
+    }
+    
+    void set_key(int _key)
+    {
+        key=_key;
+    }
+    
+    void set_next (Node *_next)
+    {
+        next = _next;
+    }
+     
+    Node * get_next()
+    {
+        return next;
+    }
+
+};
+
+
+class Clist
+{
+private:
+
+    Node *head = 0;
+    Node *tail = 0;
+    int len = 0;
+    
+    
+public:
+
+    void insert_tail(int i)
+    {
+        Node *x = new Node(i,head);
+        tail = x;
+        tail->set_next(x);
+        tail = tail->get_next();
+    }
+    
+    
+    Clist(int n)
+    {
+        for(int i=1; i<=n; i++)
+        {
+            insert_tail(i);
+            len ++;
+        }
+        
+    }
+    
+    int next_node(Node i)
+    {
+        return (i.get_key+3)%len;
+        
+    }
+
+    void delete_node(Node i)
+    {
+        
+        len--;
+    }
+
+    int size()
+    {
+        return len;
+    }
+    
+    
+};
+
+
+int main()
+{
+    int n,i;
+    Node nod_actual;
+    nod_actual.set_key(-2);
+    cin>>n;
+    Clist lst(n);
+    while(lst.size()!=0)
+    {
+        nod_actual = lst.next_node(nod_actual);
+        lst.delete_node(nod_actual);
+        cout<<nod_actual<<" ";
+    }
+}
